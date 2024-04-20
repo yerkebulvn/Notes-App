@@ -173,7 +173,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         setSubtitleIndicatorColor();
 
         LinearLayout adView = findViewById(R.id.adView_create);
-        methods.showBannerAd(adView);
+        //methods.showBannerAd(adView);
 
         bold.setOnClickListener(new View.OnClickListener() {
             @Override

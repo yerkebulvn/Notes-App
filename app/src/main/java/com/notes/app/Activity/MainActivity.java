@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         LinearLayout adView = findViewById(R.id.adView_main);
-        methods.showBannerAd(adView);
+        //methods.showBannerAd(adView);
 
     }
 

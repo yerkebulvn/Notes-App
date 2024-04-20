@@ -82,7 +82,7 @@ public class DeleteActivity extends AppCompatActivity {
 
 
         LinearLayout adView = findViewById(R.id.adView_delete);
-        methods.showBannerAd(adView);
+        //methods.showBannerAd(adView);
 
     }
     private void getNotes(final int resultCode, final  boolean isNoteDeleted){

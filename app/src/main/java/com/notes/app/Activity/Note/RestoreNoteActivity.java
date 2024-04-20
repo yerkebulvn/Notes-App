@@ -106,7 +106,7 @@ public class RestoreNoteActivity extends AppCompatActivity {
         setSubtitleIndicatorColor();
 
         LinearLayout adView = findViewById(R.id.adView_reatore);
-        methods.showBannerAd(adView);
+        //methods.showBannerAd(adView);
 
     }
 
