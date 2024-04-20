@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:textStyle="bold"
+        android:fontFamily="@font/ptsantnarrow_bold"
         android:includeFontPadding="false"
         android:text="@string/move_to_recycle_bin"
         android:textColor="?attr/BackgroundColor"
@@ -47,6 +47,7 @@
         android:paddingStart="@dimen/_8sdp"
         android:paddingEnd="@dimen/_8sdp"
         android:text="@string/are_you_sure_you_want_to_move_to_recycle_bin_this_note"
+        android:fontFamily="@font/ptsansnarraw_regular"
         android:textColor="?attr/BackgroundColor"
         android:textSize="@dimen/_13ssp"
         app:layout_constraintTop_toBottomOf="@id/imageDeleteNote" />

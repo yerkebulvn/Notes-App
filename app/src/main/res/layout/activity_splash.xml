@@ -37,17 +37,15 @@
         <TextView
             android:id="@+id/logo_text"
             android:layout_centerHorizontal="true"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/logo"
             android:textColor="?attr/BackgroundTint"
             android:layout_marginTop="10dp"
             android:text="@string/app_name"
-            android:textStyle="bold" />
-
-
-
+            android:textStyle="bold"
+            android:fontFamily="@font/ptsantnarrow_bold"/>
 
     </RelativeLayout>
 

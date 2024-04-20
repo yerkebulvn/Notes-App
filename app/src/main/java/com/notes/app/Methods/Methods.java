@@ -26,21 +26,28 @@ import com.notes.app.listeners.InterAdListener;
 
 public class Methods {
 
+    // Ресурстар мен жүйелік қызметтерге қол жеткізу үшін қолданылатын қосымшаның контексті
     private Context context;
+    // Интерстициалды жарнамалық іс-шараларды тыңдаушы
     private InterAdListener interAdListener;
+    // Google-дың интерстициальды жарнама нысаны
     private InterstitialAd interstitialAd;
+    // Facebook-тің интерстициальды жарнама нысаны
     private com.facebook.ads.InterstitialAd interstitialAdFB;
 
+    // Қолданбалы контекстпен инициализациялауға арналған конструктор
     public Methods(Context context) {
         this.context = context;
     }
 
+    // Мәтінмәнмен және жарнама тыңдаушысымен инициализациялауға арналған шамадан тыс жүктелген конструктор
     public Methods(Context context, InterAdListener interAdListener) {
         this.context = context;
-        this.interAdListener = interAdListener;
+        this.interAdListener = interAdListener; // Осы конструктор пайдаланылған кезде жарнамаларды жүктеңіз
         loadad();
     }
 
+    // Toasty library көмегімен сәттілік немесе қате туралы хабарды көрсету әдісі
     public void showSnackBar(String message, String type) {
         if (type.equals("success")){
             Toasty.success(context, message, Toast.LENGTH_SHORT, true).show();
@@ -49,14 +56,14 @@ public class Methods {
         }
     }
 
-
+    // Желінің қолжетімділігін тексеру әдісі
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-
+    // Жарнаманы жекелендіруге пайдаланушының келісімі негізінде жарнамаларды жүктеу әдісі
     private void loadad() {
         if (Constant.isAdmobInterAd) {
             interstitialAd = new InterstitialAd(context);
@@ -66,7 +73,7 @@ public class Methods {
                         .build();
             } else {
                 Bundle extras = new Bundle();
-                extras.putString("npa", "1");
+                extras.putString("npa", "1");   // Жекелендірілмеген жарнама жалауы
                 adRequest = new AdRequest.Builder()
                         .addNetworkExtrasBundle(AdMobAdapter.class, extras)
                         .build();
@@ -79,22 +86,22 @@ public class Methods {
         }
     }
 
-
+    // Интерстициальды жарнаманы көрсету немесе жарнама жүктелмеген жағдайда әрекетті орындау әдісі
     public void showInter(final int pos, final Note note, final String type) {
         if (Constant.isAdmobInterAd) {
 
                 if (interstitialAd.isLoaded()) {
                     interstitialAd.show();
                 } else {
-                    interAdListener.onClick(pos, note, type);
+                    interAdListener.onClick(pos, note, type);   // Әрекетті жарнамасыз орындаңыз
                 }
-                loadad();
+                loadad();   // Келесі жарнаманы жүктеңіз
             } else {
-                interAdListener.onClick(pos, note, type);
+                interAdListener.onClick(pos, note, type);   // Әрекетті жарнамасыз орындаңыз
             }
         }
 
-
+    // Баннерлік жарнамаларды Сызықтық Қабатта көрсету әдісі
     public void showBannerAd(LinearLayout linearLayout) {
         if (isNetworkAvailable() && linearLayout != null) {
             if (ConsentInformation.getInstance(context).getConsentStatus() == ConsentStatus.NON_PERSONALIZED) {
@@ -105,7 +112,7 @@ public class Methods {
         }
     }
 
-
+    // Жекелендірілген баннер жарнамаларын көрсетудің көмекші әдісі
     private void showPersonalizedAds(LinearLayout linearLayout) {
         if (Constant.isAdmobBannerAd) {
             AdView adView = new AdView(context);
@@ -122,6 +129,7 @@ public class Methods {
         }
     }
 
+    // Жекелендірілмеген баннерлік жарнамаларды көрсетудің көмекші әдісі
     private void showNonPersonalizedAds(LinearLayout linearLayout) {
         if (Constant.isAdmobBannerAd) {
             Bundle extras = new Bundle();

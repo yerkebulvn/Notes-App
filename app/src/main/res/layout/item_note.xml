@@ -16,12 +16,12 @@
         android:id="@+id/item_new"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NEW"
+        android:text="ЖАҢА"
+        android:fontFamily="@font/ptsantnarrow_bold"
         android:background="@drawable/background_note2"
         android:backgroundTint="#FF9100"
         android:includeFontPadding="false"
         android:textColor="@color/colorWhite"
-        android:textStyle="bold"
         android:textSize="@dimen/_10ssp"/>
 
     <com.makeramen.roundedimageview.RoundedImageView

@@ -40,6 +40,7 @@
                 android:textColor="?attr/Titel_1"
                 android:textColorHint="?attr/Titel_2"
                 android:textSize="@dimen/_16ssp"
+                android:fontFamily="@font/ptsansnarraw_regular"
                 app:layout_constraintTop_toBottomOf="@id/reatore_toolbar_note" />
 
 
@@ -50,6 +51,7 @@
                 android:includeFontPadding="false"
                 android:textColor="?attr/Titel_2"
                 android:textSize="@dimen/_10ssp"
+                android:fontFamily="@font/ptsansnarraw_regular"
                 app:layout_constraintEnd_toEndOf="@id/reatore_inputNoteTitle"
                 app:layout_constraintStart_toStartOf="@id/reatore_inputNoteTitle"
                 app:layout_constraintTop_toBottomOf="@id/reatore_inputNoteTitle" />
@@ -63,6 +65,7 @@
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:background="@null"
                 android:hint="@string/note_subtitle"
+                android:fontFamily="@font/ptsansnarraw_regular"
                 android:importantForAutofill="no"
                 android:includeFontPadding="false"
                 android:paddingTop="@dimen/_8sdp"
@@ -103,6 +106,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/ptsansnarraw_regular"
                     android:autoLink="web"
                     android:includeFontPadding="false"
                     android:textSize="@dimen/_13ssp"
@@ -155,6 +159,7 @@
                 android:includeFontPadding="false"
                 android:minHeight="@dimen/_100sdp"
                 android:textColor="?attr/Titel_1"
+                android:fontFamily="@font/ptsansnarraw_regular"
                 android:textColorHint="?attr/Titel_2"
                 android:textSize="@dimen/_13ssp"
                 app:layout_constraintBottom_toTopOf="@+id/adView_reatore"
@@ -182,6 +187,7 @@
         android:textAlignment="center"
         android:background="?attr/BackgroundTint"
         android:textColor="?attr/BackgroundColor"
+        android:fontFamily="@font/ptsansnarraw_regular"
         app:behavior_peekHeight="@dimen/_40sdp"
         app:layout_behavior="@string/bottom_sheet_behavior"
         android:layout_width="match_parent"
