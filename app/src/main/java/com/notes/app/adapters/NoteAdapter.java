@@ -23,7 +23,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.notes.app.R;
-import com.notes.app.SharedPref.Setting;
 import com.notes.app.entities.Note;
 import com.notes.app.listeners.NotesListener;
 
@@ -89,34 +88,24 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         if (note.getColor() != null){
             switch (note.getColor()){
                 case "#333333":
-                    if (Setting.Dark_Mode){
-                        gradientDrawable.setColor(Color.parseColor("#ECECEC"));
-                        holder.textTitle.setTextColor(Color.parseColor("#161616"));
-                        holder.textSubtitle.setTextColor(Color.parseColor("#6D6D6D"));
-                        holder.textDateTime.setTextColor(Color.parseColor("#6D6D6D"));
-                    }else {
-                        gradientDrawable.setColor(Color.parseColor("#121212"));
-                        holder.textTitle.setTextColor(Color.parseColor("#DBDBDB"));
-                        holder.textSubtitle.setTextColor(Color.parseColor("#E9A0A0A0"));
-                        holder.textDateTime.setTextColor(Color.parseColor("#E9A0A0A0"));
-                    }
+
+                    gradientDrawable.setColor(Color.parseColor("#121212"));
+                    holder.textTitle.setTextColor(Color.parseColor("#DBDBDB"));
+                    holder.textSubtitle.setTextColor(Color.parseColor("#E9A0A0A0"));
+                    holder.textDateTime.setTextColor(Color.parseColor("#E9A0A0A0"));
+
                     break;
                 default:
                     gradientDrawable.setColor(Color.parseColor(note.getColor()));
                     break;
             }
         }else {
-            if (Setting.Dark_Mode){
-                gradientDrawable.setColor(Color.parseColor("#ECECEC"));
-                holder.textTitle.setTextColor(Color.parseColor("#161616"));
-                holder.textSubtitle.setTextColor(Color.parseColor("#6D6D6D"));
-                holder.textDateTime.setTextColor(Color.parseColor("#6D6D6D"));
-            }else {
-                gradientDrawable.setColor(Color.parseColor("#121212"));
-                holder.textTitle.setTextColor(Color.parseColor("#DBDBDB"));
-                holder.textSubtitle.setTextColor(Color.parseColor("#E9A0A0A0"));
-                holder.textDateTime.setTextColor(Color.parseColor("#E9A0A0A0"));
-            }
+
+            gradientDrawable.setColor(Color.parseColor("#121212"));
+            holder.textTitle.setTextColor(Color.parseColor("#DBDBDB"));
+            holder.textSubtitle.setTextColor(Color.parseColor("#E9A0A0A0"));
+            holder.textDateTime.setTextColor(Color.parseColor("#E9A0A0A0"));
+
         }
 
         if (note.getImagePath() != null){

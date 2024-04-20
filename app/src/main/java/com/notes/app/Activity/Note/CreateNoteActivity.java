@@ -57,7 +57,6 @@ import java.util.Random;
 
 import com.notes.app.Methods.Methods;
 import com.notes.app.R;
-import com.notes.app.SharedPref.Setting;
 import com.notes.app.database.DeleteDatabase;
 import com.notes.app.database.NotesDatabase;
 import com.notes.app.entities.Note;
@@ -90,11 +89,9 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Setting.Dark_Mode ) {
-            setTheme(R.style.AppTheme2);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
+
+        setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_note);
 
@@ -105,11 +102,9 @@ public class CreateNoteActivity extends AppCompatActivity {
         setTitle(R.string.app_name);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (Setting.Dark_Mode) {
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
-        } else {
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp2);
-        }
+
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp2);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -808,11 +803,9 @@ public class CreateNoteActivity extends AppCompatActivity {
         GradientDrawable gradientDrawable = (GradientDrawable) viewSubtitleIndicator.getBackground();
         switch (setectedNoteColor){
             case "#333333":
-                if (Setting.Dark_Mode){
-                    gradientDrawable.setColor(Color.parseColor("#ECECEC"));
-                }else {
-                    gradientDrawable.setColor(Color.parseColor("#121212"));
-                }
+
+                gradientDrawable.setColor(Color.parseColor("#121212"));
+
                 break;
             default:
                 gradientDrawable.setColor(Color.parseColor(setectedNoteColor));

@@ -31,7 +31,6 @@ import com.notes.app.Activity.Note.CreateNoteActivity;
 import com.notes.app.Methods.Methods;
 import com.notes.app.Methods.NavigationUtil;
 import com.notes.app.R;
-import com.notes.app.SharedPref.Setting;
 import com.notes.app.adapters.NoteAdapter;
 import com.notes.app.database.NotesDatabase;
 import com.notes.app.entities.Note;
@@ -52,11 +51,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Setting.Dark_Mode ) {
-            setTheme(R.style.AppTheme2);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
+
+        setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         methods = new Methods(this);
@@ -191,9 +188,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.action_set :
-                NavigationUtil.SettingActivity(MainActivity.this);
-                break;
 
             case R.id.nav_delete :
                 NavigationUtil.DeleteActivity(MainActivity.this);

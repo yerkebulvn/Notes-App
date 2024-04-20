@@ -12,8 +12,8 @@ public class Constant implements Serializable {
     public static String privacyPolicy = "http://example.com/";
 
     //--------------------Admob ads----------------- //
-    public static Boolean isAdmobBannerAd = true;
-    public static Boolean  isAdmobInterAd = true;
+    public static Boolean isAdmobBannerAd = false;
+    public static Boolean  isAdmobInterAd = false;
     public static int adShow = 5;
 
     //--------------------Fb ads----------------- //

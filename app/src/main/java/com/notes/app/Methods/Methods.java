@@ -20,7 +20,6 @@ import com.google.android.gms.ads.InterstitialAd;
 import es.dmoral.toasty.Toasty;
 import com.notes.app.Constant.Constant;
 import com.notes.app.R;
-import com.notes.app.SharedPref.Setting;
 import com.notes.app.entities.Note;
 import com.notes.app.listeners.InterAdListener;
 
@@ -83,15 +82,7 @@ public class Methods {
 
     public void showInter(final int pos, final Note note, final String type) {
         if (Constant.isAdmobInterAd) {
-            Setting.adCount = Setting.adCount + 1;
-            if (Setting.adCount % Constant.adShow == 0) {
-                interstitialAd.setAdListener(new com.google.android.gms.ads.AdListener() {
-                    @Override
-                    public void onAdClosed() {
-                        interAdListener.onClick(pos, note, type);
-                        super.onAdClosed();
-                    }
-                });
+
                 if (interstitialAd.isLoaded()) {
                     interstitialAd.show();
                 } else {
@@ -101,53 +92,8 @@ public class Methods {
             } else {
                 interAdListener.onClick(pos, note, type);
             }
-        } else if (Constant.isFBInterAd) {
-            Setting.adCount = Setting.adCount + 1;
-            if (Setting.adCount % Constant.adShowFB == 0) {
-                interstitialAdFB.loadAd(interstitialAdFB.buildLoadAdConfig().withAdListener(new InterstitialAdListener() {
-                    @Override
-                    public void onError(com.facebook.ads.Ad ad, AdError adError) {
-
-                    }
-
-                    @Override
-                    public void onAdLoaded(com.facebook.ads.Ad ad) {
-
-                    }
-
-                    @Override
-                    public void onAdClicked(com.facebook.ads.Ad ad) {
-
-                    }
-
-                    @Override
-                    public void onLoggingImpression(com.facebook.ads.Ad ad) {
-
-                    }
-
-                    @Override
-                    public void onInterstitialDisplayed(com.facebook.ads.Ad ad) {
-
-                    }
-
-                    @Override
-                    public void onInterstitialDismissed(com.facebook.ads.Ad ad) {
-                        interAdListener.onClick(pos, note, type);
-                    }
-                }).build());
-                if (interstitialAdFB.isAdLoaded()) {
-                    interstitialAdFB.show();
-                } else {
-                    interAdListener.onClick(pos, note, type);
-                }
-                loadad();
-            } else {
-                interAdListener.onClick(pos, note, type);
-            }
-        } else {
-            interAdListener.onClick(pos, note, type);
         }
-    }
+
 
     public void showBannerAd(LinearLayout linearLayout) {
         if (isNetworkAvailable() && linearLayout != null) {

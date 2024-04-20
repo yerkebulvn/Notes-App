@@ -20,7 +20,6 @@ import com.notes.app.Activity.MainActivity;
 import com.notes.app.Activity.Note.RestoreNoteActivity;
 import com.notes.app.Methods.Methods;
 import com.notes.app.R;
-import com.notes.app.SharedPref.Setting;
 import com.notes.app.adapters.NoteAdapter;
 import com.notes.app.database.DeleteDatabase;
 import com.notes.app.entities.Note;
@@ -42,11 +41,9 @@ public class DeleteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Setting.Dark_Mode) {
-            setTheme(R.style.AppTheme2);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
+
+        setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete);
 

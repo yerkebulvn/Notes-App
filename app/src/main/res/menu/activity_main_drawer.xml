@@ -14,12 +14,6 @@
             android:icon="@drawable/ic_delete"
             android:title="@string/recycle_bin" />
 
-        <item
-            android:id="@+id/action_set"
-            android:icon="@drawable/ic_cog"
-            android:title="@string/settings" />
-
-
     </group>
 
 
