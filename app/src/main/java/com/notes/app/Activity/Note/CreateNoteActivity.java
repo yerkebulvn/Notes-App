@@ -63,8 +63,10 @@ import com.notes.app.entities.Note;
 
 public class CreateNoteActivity extends AppCompatActivity {
 
-
+    //Methods класы
     private Methods methods;
+
+    //UI
     private EditText inpuNoteTitle, inpuNoteSubtitle;
     private TextView textDeteTime, textWebURL;
     private RoundedImageView imageNote;
@@ -78,12 +80,19 @@ public class CreateNoteActivity extends AppCompatActivity {
     private AlertDialog dialogDeletNote;
     private AlertDialog dialogExport;
 
+    // Жазба бар екенін тексеруге
     private Note alreadyAvailableNote;
+    // Rich text editor компоненттері
     private NemosoftsEditText nemosoftsEditText;
     private ImageButton bold, italic, underline, strikethrough, bullet, quote, clear;
+
+    // Кездейсоқ сандар генераторы
     private int generator;
+
+    // Әр түрлі опциялар үшін айналдыру көрінісі
     private LinearLayout llScroll;
 
+    // Әр түрлі опциялар төменгі парақ
     private LinearLayout linearMiscellaneous;
     private BottomSheetBehavior<LinearLayout> bottomSheetBehavior;
 
@@ -95,16 +104,20 @@ public class CreateNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_note);
 
+        // Әдістер класын инициализациялау
         methods = new Methods(this);
 
+        // Құралдар тақтасын орнатыңыз
         Toolbar toolbar = findViewById(R.id.create_toolbar_note);
         setSupportActionBar(toolbar);
         setTitle(R.string.app_name);
 
+        // Құралдар тақтасындағы "артқа" түймесін қосыңыз
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp2);
 
+        // Артқа түймесін басылуын тыңдаушы
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +125,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
         });
 
+        // UI элементтерін инициализациялау
         llScroll = findViewById(R.id.llScroll);
         linearMiscellaneous = findViewById(R.id.layoutMiscellaneous);
         bottomSheetBehavior = BottomSheetBehavior.from(linearMiscellaneous);
@@ -284,6 +298,12 @@ public class CreateNoteActivity extends AppCompatActivity {
         nemosoftsEditText.fromHtml(alreadyAvailableNote.getNoteText());
         textDeteTime.setText(alreadyAvailableNote.getDateTime());
 
+        // FINDVIEWSBYID ИНТЕРФЕЙСТІҢ БАСҚА элементтері үшін (енгізу Жазбасының Тақырыбы, Енгізу Жазбасының Субтитрі, мәтін Күнінің Уақыты және т.б.).)
+
+        // Мәтіндік редактордың бай компоненттерін орнату (қалың, курсив, астын сызу және т.б.).)
+
+        // Әр түрлі опцияларды орнату (түс таңдау құралы, кескін тіркемесі және т.б.).)
+
         if (alreadyAvailableNote.getImagePath() != null && !alreadyAvailableNote.getImagePath().trim().isEmpty()){
             imageNote.setImageBitmap(BitmapFactory.decodeFile(alreadyAvailableNote.getImagePath()));
             imageNote.setVisibility(View.VISIBLE);
@@ -297,6 +317,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         }
     }
 
+    //Жазбаны сақтау функциясы
     private void saveNote() {
         if (inpuNoteTitle.getText().toString().trim().isEmpty()){
             methods.showSnackBar("Note title can't be empty!","error");
@@ -345,6 +366,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         new SaveNoteTask().execute();
     }
 
+    // Әр түрлі опцияларды инициализациялау (түс таңдау құралы, кескін тіркемесі және т.б.).)
     private void initMiscellaneous() {
         linearMiscellaneous.findViewById(R.id.textMiscellaneous).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -632,6 +654,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         }
     }
 
+    // Жазбаны экспорттау диалогын ашу
     private void showExportDialog() {
         if (dialogExport == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(CreateNoteActivity.this);
@@ -670,6 +693,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         dialogExport.show();
     }
 
+    // Суретті сақтау функциясы
     private void saveImage() {
         Bitmap bitmap;
         bitmap= viewToBitmap(llScroll);
@@ -683,6 +707,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         return bitmap;
     }
 
+    // Суретті сматрфонның жадысына сақтау
     private void saveImageToExternalStorage(Bitmap finalBitmap) {
         String iconsStoragePath = Environment.getExternalStorageDirectory() + "/" + getString(R.string.app_name);
         File sdIconStorageDir = new File(iconsStoragePath);
@@ -698,14 +723,14 @@ public class CreateNoteActivity extends AppCompatActivity {
             finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
-            Toast.makeText(this, "Image is created!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Сурет құрылды!!!", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Бірдеңе дұрыс емес: " + e.toString(), Toast.LENGTH_LONG).show();
         }
 
-        // Tell the media scanner about the new file so that it is
-        // immediately available to the user.
+        // Медиа сканерге жаңа файл туралы айту
+        // пайдаланушыға дереу қол жетімді.
         MediaScannerConnection.scanFile(this, new String[] { file.toString() }, null,
                 new MediaScannerConnection.OnScanCompletedListener() {
                     public void onScanCompleted(String path, Uri uri) {
@@ -717,6 +742,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         openGeneratedJPG();
     }
 
+    // Генерацияланған JPEG файлды ашу
     private void openGeneratedJPG(){
         String iconsStoragePath = Environment.getExternalStorageDirectory() + "/" + getString(R.string.app_name);
         File sdIconStorageDir = new File(iconsStoragePath);
@@ -730,11 +756,12 @@ public class CreateNoteActivity extends AppCompatActivity {
             try {
                 startActivity(intent);
             } catch(ActivityNotFoundException e) {
-                Toast.makeText(CreateNoteActivity.this, "No Application available to view JPG", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateNoteActivity.this, "JPG көру Үшін Қолжетімді Қолданба жоқ", Toast.LENGTH_LONG).show();
             }
         }
     }
 
+    // Нөмірді генерациялау
     private int generatorNumber() {
         Random generator = new Random();
         int n = 10000;
@@ -742,7 +769,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         return n;
     }
 
-
+    // Жазбаны өшіру диалогын шақыру
     private void showDeletNoteDialog() {
         if (dialogDeletNote == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(CreateNoteActivity.this);
@@ -799,6 +826,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         dialogDeletNote.show();
     }
 
+    // Тақырыпшаның түсін өзгерту
     private void setSubtitleIndicatorColor(){
         GradientDrawable gradientDrawable = (GradientDrawable) viewSubtitleIndicator.getBackground();
         switch (setectedNoteColor){
@@ -813,6 +841,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         }
     }
 
+    // Суретті таңдау
     private void selectImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -820,6 +849,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.select_image)), REQUST_CODE_SELECT_IMAGE);
     }
 
+    // Қолданушыдан рұқсат сұрағаннан кейін
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -831,6 +861,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         }
     }
 
+    // Activity результат қайтарғанда
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -854,6 +885,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         }
     }
 
+    // URI арқылы путь ті алу
     public String getPathFromUri(Uri uri) {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -909,7 +941,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         }
     }
 
-
+    // Сілтеме қосу диалогын ашу
     private void showAddURLDialog(){
         if (dialogAddURL == null){
             AlertDialog.Builder builder = new AlertDialog.Builder(CreateNoteActivity.this);
@@ -958,11 +990,10 @@ public class CreateNoteActivity extends AppCompatActivity {
         return true;
     }
 
+    // Менюдағы элементтерді таңдауды басқару
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         switch (id){
@@ -973,6 +1004,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Сақталған жазбаны өшіру
     private void deleteSaveNote() {
         if (inpuNoteTitle.getText().toString().trim().isEmpty()){
             methods.showSnackBar("Note title can't be empty!","error");
@@ -1019,6 +1051,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         new DeleteSaveNoteTask().execute();
     }
 
+    // Артқа қайту батырмасы басылған кезде
     @Override
     public void onBackPressed() {
         if (bottomSheetBehavior!=null && bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
@@ -1038,6 +1071,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         }
     }
 
+    // Батырма басылғанда жазбаны сақтау
     private void saveNoteOnBackPressed() {
         final Note note = new  Note();
         note.setTitle(inpuNoteTitle.getText().toString());
@@ -1107,10 +1141,10 @@ public class CreateNoteActivity extends AppCompatActivity {
             nemosoftsEditText.getText().clear();
             out.flush();
             out.close();
-            Toast.makeText(this, "txt is created!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "txt сәтті жасалды!!!", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Бірдеңе дұрыс емес: " + e.toString(), Toast.LENGTH_LONG).show();
         }
 
     }

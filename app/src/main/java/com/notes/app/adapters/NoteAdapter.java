@@ -28,12 +28,22 @@ import com.notes.app.listeners.NotesListener;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
+    // Адаптерге арналған контекст
     private Context context;
+
+    // Көрсетілетін жазбалар тізімі
     private List<Note> notes;
+
+    // Ескерту үшін тыңдаушы оқиғаларды тыңдаушы
     private NotesListener notesListener;
+
+    // UI жаңартуларын өңдеуге арналған таймер
     private Timer timer;
+
+    // Жазбалардың түпнұсқа тізімі (сүзу үшін пайдаланылады)
     private List<Note> noteSource;
 
+    // Конструктор адаптерді баптандырады
     public NoteAdapter(Context context,List<Note> notes, NotesListener notesListener) {
         this.context = context;
         this.notes = notes;
@@ -41,6 +51,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         this.noteSource = notes;
     }
 
+    // RecyclerView Көрінісіндегі әрбір элемент үшін жаңа ViewHolder жасаy
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,15 +59,19 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         return new NoteViewHolder(itemView);
     }
 
+    // Деректерді ViewHolder-ге байланыстыру
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         final Note note = notes.get(position);
+        // Жазба элементі үшін click listener параметрін орнатy
         holder.layoutNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 notesListener.onNoteClicked(notes.get(position), position);
             }
         });
+
+        // UI жаңартулары үшін қадамды есептеңіз
         int step = 1;
         int final_step = 1;
         for (int i = 1; i < position + 1; i++) {
@@ -66,6 +81,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             step++;
         }
 
+        // Қадам негізінде "жаңа" индикаторды көрсету немесе жасыру
         switch (step) {
             case 1:
                 holder.item_new.setVisibility(View.VISIBLE);
@@ -76,6 +92,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         }
 
+        //Жазбаның тақырыбын, субтитрін және күнін/уақытын орнатыңыз
         holder.textTitle.setText(note.getTitle());
         if (note.getSubtitle().trim().isEmpty()){
             holder.textSubtitle.setVisibility(View.GONE);
@@ -84,6 +101,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         }
         holder.textDateTime.setText(note.getDateTime());
 
+        // Ескертпе түсіне негізделген өң түсі мен мәтін түстерін орнатыңыз
         GradientDrawable gradientDrawable = (GradientDrawable) holder.layoutNote.getBackground();
         if (note.getColor() != null){
             switch (note.getColor()){
@@ -108,6 +126,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         }
 
+        // Бар болса, ескертпе кескінін орнатыңыз
         if (note.getImagePath() != null){
             holder.imageNote.setImageBitmap(BitmapFactory.decodeFile(note.getImagePath()));
             holder.imageNote.setVisibility(View.VISIBLE);
@@ -116,6 +135,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         }
     }
 
+    // RecyclerView Көрінісіндегі элементтердің жалпы санын қайтарыңыз
     @Override
     public int getItemCount() {
         return notes.size();
@@ -126,8 +146,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         return position;
     }
 
+    // Жеке нота элементтеріне арналған ViewHolder класы
     static class  NoteViewHolder extends RecyclerView.ViewHolder{
 
+        // ӘРБІР ескертпе элементі ҮШІН UI элементтері
         TextView textTitle, textSubtitle, textDateTime, item_new;
         RelativeLayout layoutNote;
         RoundedImageView imageNote;
@@ -151,9 +173,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                // Егер іздеу кілт сөзі бос болса, барлық жазбаларды бастапқы көзден көрсетіңіз
                 if (searchKeyword.trim().isEmpty()) {
                     notes = noteSource;
                 }else {
+                    // Іздеу кілт сөзіне негізделген жазбаларды сүзу (регистрге сезімтал емес)
                     ArrayList<Note> temp = new ArrayList<>();
                     for (Note note : noteSource) {
                         if (note.getTitle().toLowerCase().contains(searchKeyword.toLowerCase())
@@ -165,6 +189,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                     notes = temp;
                 }
 
+                // НЕГІЗГІ ағындағы UI интерфейсін жаңартыңыз
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
@@ -172,7 +197,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                     }
                 });
             }
-        },500);
+        },500); // Іздеуді орындамас бұрын кідірту (қажетінше реттеу)
     }
 
     public void cancelTimer() {

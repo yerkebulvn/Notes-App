@@ -26,6 +26,7 @@ import com.notes.app.entities.Note;
 import com.notes.app.listeners.InterAdListener;
 import com.notes.app.listeners.NotesListener;
 
+// Жазбаларды өшіруге арналған activity
 public class DeleteActivity extends AppCompatActivity {
 
 
@@ -80,11 +81,8 @@ public class DeleteActivity extends AppCompatActivity {
         notesRecyclerView.setAdapter(noteAdapter);
         getNotes(REQUST_CODE_SHOW_NOTES, false);
 
-
-        LinearLayout adView = findViewById(R.id.adView_delete);
-        //methods.showBannerAd(adView);
-
     }
+    // Жазбаларды алу функциясы
     private void getNotes(final int resultCode, final  boolean isNoteDeleted){
 
         @SuppressLint("StaticFieldLeak")

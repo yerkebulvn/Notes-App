@@ -46,6 +46,8 @@ import com.notes.app.entities.Note;
 public class RestoreNoteActivity extends AppCompatActivity {
 
     private Methods methods;
+
+    // UI
     private TextView inpuNoteTitle, inpuNoteSubtitle, inpuNoteText, textDeteTime, textWebURL;
     private RoundedImageView imageNote;
     private String setectedNoteColor;
@@ -110,6 +112,7 @@ public class RestoreNoteActivity extends AppCompatActivity {
 
     }
 
+    // View ді көрсету немесе жазбаны өңдеу
     private void setViewOrUpdateNote() {
         inpuNoteTitle.setText(alreadyAvailableNote.getTitle());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -139,6 +142,7 @@ public class RestoreNoteActivity extends AppCompatActivity {
 
     }
 
+    // Жазбаны сақтау функциясы
     private void saveNote() {
 
         final Note note = new  Note();
@@ -175,11 +179,13 @@ public class RestoreNoteActivity extends AppCompatActivity {
         new SaveNoteTask().execute();
     }
 
+    // Тақырыпша индикаторының түсін өзгерту
     private void setSubtitleIndicatorColor(){
         GradientDrawable gradientDrawable = (GradientDrawable) viewSubtitleIndicator.getBackground();
         gradientDrawable.setColor(Color.parseColor(setectedNoteColor));
     }
 
+    // Суретті таңдау
     private void selectImage() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         if (intent.resolveActivity(getPackageManager()) != null){
